@@ -25,13 +25,10 @@ class LoginPage extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    Expanded(
-                      child: Icon(Icons.home),
-                    ),
+                    LogoWidget(),
                     Container(
-                      decoration: BoxDecoration(
-                        // color: Colors.yellow,
-                        borderRadius: BorderRadius.vertical(
+                      decoration: const BoxDecoration(
+                        borderRadius:  BorderRadius.vertical(
                           bottom: Radius.circular(50),
                         ),
                       ),
@@ -43,14 +40,7 @@ class LoginPage extends StatelessWidget {
                             Theme.of(context).textTheme.bodyText2,
                         indicatorColor: yellowColor,
                         indicatorWeight: 3,
-                        tabs: [
-                          Tab(
-                            text: "    Login    ",
-                          ),
-                          Tab(
-                            text: "  SignUp  ",
-                          )
-                        ],
+                        tabs: [loginTabar(), signUpTabar()],
                       ),
                     ),
                   ],
@@ -67,71 +57,17 @@ class LoginPage extends StatelessWidget {
                       Spacer(
                         flex: 6,
                       ),
-                      TextFormField(
-                        validator: (value)=>
-                            value!.isEmpty? null: value ="This field required",
-                        decoration: InputDecoration(
-                          hintText: "Email",
-                          icon: Container(
-                            decoration: BoxDecoration(
-                                color: yellowColor,
-                                borderRadius: BorderRadius.circular(12)),
-                            padding: EdgeInsets.all(7),
-                            child: Icon(
-                              Icons.email,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                      TextFormField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          hintText: "Password",
-                          suffix: Icon(Icons.visibility),
-                          icon: Container(
-                            decoration: BoxDecoration(
-                                color: yellowColor,
-                                borderRadius: BorderRadius.circular(12)),
-                            padding: EdgeInsets.all(7),
-                            child: Icon(
-                              Icons.password_rounded,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
+                      InputEmail(),
+                      InputPassword(),
                       Spacer(
                         flex: 1,
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text("Forget Password ?"),
-                      ),
+                      forgetPass(),
                       Spacer(
                         flex: 6,
                       ),
-                      RaisedButton(
-                        onPressed: () {},
-                        padding: EdgeInsets.all(12),
-                        shape: StadiumBorder(),
-                        child: Center(
-                            child: Text(
-                          "Enter To App",
-                          style: Theme.of(context).textTheme.headline6,
-                        )),
-                        color: yellowColor,
-                      ),
-                      Wrap(
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: [
-                          Text("Don't Have Acount?"),
-                          FlatButton(
-                            onPressed: () {},
-                            child: Text("SingUp."),
-                          ),
-                        ],
-                      ),
+                      loginButton(context),
+                      signUpButton(),
                       Spacer(
                         flex: 1,
                       ),
@@ -141,6 +77,117 @@ class LoginPage extends StatelessWidget {
               ),
             )
           ],
+        ),
+      ),
+    );
+  }
+
+  Tab signUpTabar() {
+    return Tab(
+      text: "  SignUp  ",
+    );
+  }
+
+  Tab loginTabar() {
+    return Tab(
+      text: "    Login    ",
+    );
+  }
+
+  Wrap signUpButton() {
+    return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        Text("Don't Have Acount?"),
+        FlatButton(
+          onPressed: () {},
+          child: Text("SingUp."),
+        ),
+      ],
+    );
+  }
+
+  RaisedButton loginButton(BuildContext context) {
+    return RaisedButton(
+      onPressed: () {},
+      padding: EdgeInsets.all(12),
+      shape: StadiumBorder(),
+      child: Center(
+          child: Text(
+        "Enter To App",
+        style: Theme.of(context).textTheme.headline6,
+      )),
+      color: yellowColor,
+    );
+  }
+
+  Align forgetPass() {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Text("Forget Password ?"),
+    );
+  }
+}
+
+class LogoWidget extends StatelessWidget {
+  const LogoWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Icon(Icons.home),
+    );
+  }
+}
+
+class InputPassword extends StatelessWidget {
+  const InputPassword({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      obscureText: true,
+      decoration: InputDecoration(
+        hintText: "Password",
+        suffix: Icon(Icons.visibility),
+        icon: Container(
+          decoration: BoxDecoration(
+              color: yellowColor, borderRadius: BorderRadius.circular(12)),
+          padding: EdgeInsets.all(7),
+          child: Icon(
+            Icons.password_rounded,
+            color: Colors.black,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class InputEmail extends StatelessWidget {
+  const InputEmail({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      validator: (value) =>
+          value!.isEmpty ? null : value = "This field required",
+      decoration: InputDecoration(
+        hintText: "Email",
+        icon: Container(
+          decoration: BoxDecoration(
+              color: yellowColor, borderRadius: BorderRadius.circular(12)),
+          padding: EdgeInsets.all(7),
+          child: Icon(
+            Icons.email,
+            color: Colors.black,
+          ),
         ),
       ),
     );
