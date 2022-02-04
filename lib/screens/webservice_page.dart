@@ -43,23 +43,14 @@ class _CallPageState extends State<CallPage> {
 fetchData() {
     setState(() {
       Fetch();
-      myData = "Fetched";
+      // myData = d.toString() ;
     });
   }
 
   restData() {
     setState(() {
-      print("reseted");
-      myData = "sss";
+      myData = " ";
     });
-  }
-  Future<void> fetchDio() async {
-    try {
-        var response = await Dio().get('https://jsonplaceholder.typicode.com/posts/1');
-        print(response);
-    } catch (e) {
-      print(e);
-    }
   }
 
   Future<String> Fetch() async {
@@ -67,15 +58,13 @@ fetchData() {
     try {
       var url = Uri.parse( "https://jsonplaceholder.typicode.com/posts/1");
       var response= await get(url); 
-
-       setState(() {
-         myData=response.body.toString();
-       });
-
+         results =response.body.toString();
+         setState(() {
+           myData=results;
+         });
     } catch (e) {
-      print(e);
       return e.toString();
     }
-    return results.toString();
+    return results;
   }
 }
