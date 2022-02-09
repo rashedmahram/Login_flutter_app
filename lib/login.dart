@@ -1,4 +1,4 @@
-import 'package:demo_app/constans.dart';
+import 'constans.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {

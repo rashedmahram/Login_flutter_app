@@ -43,7 +43,6 @@ class _HomeScreen1State extends State<HomeScreen1> {
           } else {
             return Text("${snapShot.error}");
           }
-          return CircularProgressIndicator();
         },future:userFutur ,)
         // TextButton(onPressed: fetchData,child: Text("Press me"),),
       ),

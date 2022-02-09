@@ -1,5 +1,6 @@
-import 'package:demo_app/screens/create_user.dart';
 import 'package:flutter/material.dart';
+
+import 'screens/update_usert.dart';
 
 void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
@@ -8,7 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
-      home:  const ResgisterPage(),
+      home:  const UpdateScreen(),
     );
   }
 }
