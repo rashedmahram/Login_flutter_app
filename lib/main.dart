@@ -1,4 +1,4 @@
-import 'package:demo_app/demo1/screen.dart';
+import 'package:demo_app/screens/create_user.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
-      home:  const HomeScreen1(),
+      home:  const ResgisterPage(),
     );
   }
 }
