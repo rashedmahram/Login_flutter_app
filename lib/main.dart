@@ -1,6 +1,5 @@
+import 'package:demo_app/websocket_app/main_screen.dart';
 import 'package:flutter/material.dart';
-
-import 'screens/update_usert.dart';
 
 void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
@@ -9,7 +8,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
-      home:  const UpdateScreen(),
+      home:  const HomeScreen(title: 'Chat',),
     );
   }
 }
