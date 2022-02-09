@@ -19,27 +19,6 @@ class Data {
   }
 
 }
-class MyData{
-  int? id;
-  String? name;
-  String? password;
-  String? email;
-
-  MyData({this.id, this.name, this.password, this.email});
-  // MyData(Map<String,dynamic> json){
-  //   id = json['id'];
-  //   name = json['name'];
-  //   password = json['password'];
-  //   email = json['email'];
-  // }
-  MyData.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    password = json['password'];
-    email = json['email'];
-  }
-}
-
 class HomeScreen1 extends StatefulWidget {
   const HomeScreen1({Key? key}) : super(key: key);
 
@@ -48,30 +27,84 @@ class HomeScreen1 extends StatefulWidget {
 }
 
 class _HomeScreen1State extends State<HomeScreen1> {
+  late Future<Data> userFutur;
+  @override
+  void initState() {
+    super.initState();
+    userFutur=fetchData();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: TextButton(onPressed: fetchData,child: Text("Press me"),),
+        child: FutureBuilder<Data>(builder: (context,snapShot){
+          if (snapShot.hasData) {
+            return UserInfo(snapShot: snapShot,);
+          } else {
+            return Text("${snapShot.error}");
+          }
+          return CircularProgressIndicator();
+        },future:userFutur ,)
+        // TextButton(onPressed: fetchData,child: Text("Press me"),),
       ),
     );
   }
 
 
-  fetchData()async{
+  Future<Data> fetchData()async{
     String url="http://192.168.1.102:3000/Users";
     var response= await get(Uri.parse(url));
     
-    print(response.runtimeType);
-    var jsonString='[{ "id": 0,"name": "Rasheed","password": "123","email": "Hazelrasheed@gmail.com"}]';
-    var decodeJson=json.decode(jsonString);
-    var user=MyData.fromJson(decodeJson[0]);
-    print("${user.name}");
+    if (response.statusCode==200) {
+      var i= json.decode(response.body);
+      var k= Data.fromJson(i[0]);
+      return k;
+    } 
+    else{
+      throw Exception("NO Internet Connection");
+    }
+
+  }
+}
+
+class UserInfo extends StatelessWidget {
+  final snapShot;
+  const UserInfo({
+    Key? key,
+    required this.snapShot,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        DataRow(title:"id",data:snapShot.data.id),
+        DataRow(title:"name",data:snapShot.data.name),
+        DataRow(title:"password",data:snapShot.data.password),
+
+      ],
+    );
+  }
+}
+
+class DataRow extends StatelessWidget {
+  const DataRow({
+    Key? key, this.title, this.data,
+
+  }) : super(key: key);
 
 
-    var jsonContent=response.body;
-    var decodedJson=json.decode(jsonContent);
-    var user1=MyData.fromJson(decodedJson[0]);
-    print(user1.email);
+  final title,data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("${title}: "),
+        Text("${data}"),
+      ],
+    );
   }
 }
