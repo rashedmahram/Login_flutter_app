@@ -1,8 +1,9 @@
 import 'dart:convert';
 
-import '../model/user_model.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import '../model/user_model.dart';
 
 class UpdateScreen extends StatefulWidget {
   const UpdateScreen({Key? key}) : super(key: key);
